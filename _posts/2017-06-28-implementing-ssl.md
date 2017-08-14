@@ -68,7 +68,7 @@ For most of the existing certs:
 - The Site certificate is called domainname.crt
 - The Full chain cert is called domainname.cer
 
-###2.b: Certificate From Lets Encrypt
+### 2.b: Certificate From Lets Encrypt
 With certbot installed, there are lots of different ways to generate a certificate. Often, there are routes to both generate install the certificate or to only generate it and leave installation up to the user.
 Since our configurations rely on multiple vhosts, we will opt for the latter.
 
