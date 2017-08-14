@@ -26,21 +26,6 @@
     <section class="main-content">
       {{ content }}
 
-      <div class="posts">
-          {% for post in site.posts %}
-              <article class="home__article">
-                  <header>
-                      <h3><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
-                      <span><date>{{ post.date | date: "%b %-d, %Y" }}</date> | {{ post.author }}</span>
-                  </header>
-                  <p>{{post.snippet}}</p>
-                  <a href="{{ post.url | relative_url }}">Read More</a>
-              </article>
-              <br>
-          {% endfor %}
-      </div>
-
-
       <footer class="site-footer">
         {% if site.github.is_project_page %}
           <span class="site-footer-owner"><a href="{{ site.github.repository_url }}">{{ site.github.repository_name }}</a> is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>.</span>
