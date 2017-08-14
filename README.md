@@ -1,4 +1,4 @@
-# Best Practices
+# Developer Docs
 
 A collection of best practices and wisdom nuggets, from and for the developers at Up&amp;Up.
 
