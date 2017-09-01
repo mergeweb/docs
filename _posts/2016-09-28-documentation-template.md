@@ -62,7 +62,6 @@ If you have `drush` installed on your vagrant box, you can `cd /var/www/websites
 
 ## Deployment
 {Include instructions on deploying to staging and production environments.}
-## Deployment
  - **Staging**: Merge your changes into the testing branch and `cap staging deploy`.
  - **Production**: Merge your changes into the master branch and `cap prod deploy`.
 
