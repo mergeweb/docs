@@ -9,17 +9,16 @@ categories: css
 ## Purpose
 The purpose of this series will be to define some standardized best practices for how our CSS is composed and organized in our projects.
 
-This is part 2 of 5: Framework.
+This is part 2 of 4: Framework.
 In this article, we will discuss Bootstrap as our framework of choice and in what ways we lean on Bootstrap to style a site.
 
 ## Why Bootstrap
 Our choice to use Bootstrap is preferential. There are merits to other frameworks, Bootstrap is just the one we like best.
-Overall, using a framework like Bootstrap provides us with a lot of common structure patterns and element styles.
+Overall, using a framework like Bootstrap provides us with a lot of predictable structure, patterns and element styles.
 Using the same framework on multiple projects provides a few benefits. 
 1. We can assume a basic set of patterns and elements are available to us in every site we build.
 2. We know that common classes will always produce the same output and don't have to spend time learning one-off approaches unique to each site.
-3. Because of the predictability in the code, sites can be mutually understood by a team, allowing for better collaboration and 
- getting rid of the "Only Jones knows how that site works" type of mentality.
+3. Because of the predictability in the code, sites can be mutually understood by a team, allowing for better collaboration.
 
 ## Using Bootstrap
 Using Bootstrap does require knowing about Bootstrap. 
@@ -44,14 +43,11 @@ Generally, we like to leverage Bootstrap to accomplish 2 major tasks:
 In pursuit of these goals, we primarily use the parts of Bootstrap that do not require javascript and that are not highly opinionated in terms of markup structure.
 
 For example, the button styles Bootstrap provide some great defaults and can be overridden to match the theme of a site.
-Button styles require only one class: `.btn`, and they do not rely on any particular markup (though button styles should be applied to `<button>` elements) 
+Button styles require only one class: `.btn`, and they do not rely on any particular markup (though button styles should generally be applied to `<button>` elements) 
 
 Conversely, the "Jumbotron" component requires some specific markup structure and may be harder to naturally work into a specific design.
 We would only use the Jumbotron component if it fit our needs closely for a specific project. 
 Otherwise, a component like Jumbotron would be created as a custom component, with markup and styles that served out needs exactly.
-
-This methodology of incorporating the common component styles while leaving out the more opinionated ones prevents us from
-writing unnecessary override code. 
 
 The components listed in the following sections we would like to ALWAYS rely on.
 Other components can be used at the author's discretion if they fit the needs of a given site.
@@ -63,7 +59,7 @@ For layout purposes, we use Bootstrap to do the following:
     - Display property alterations (using classes like d-flex for flexbox)
     - Margin and padding alterations (like mb-1 for adding some margin on the bottom of something)
  
-When building a site, grid structure and layout modifiers should always be informed by Bootstrap.
+When building a site, grid structure and layout modifiers should always rely on Bootstrap.
 For page layouts, refer to Bootstrap's [Grid System](https://getbootstrap.com/docs/4.0/layout/grid/).
 Generally, grid layouts are defined as follows:
 
@@ -82,9 +78,10 @@ Generally, grid layouts are defined as follows:
 ```
 
 Using layout utility classes properly is trickier, and comes with some practice. 
-Often, things like margin or padding are defined at the component level on a component class. This is correct.
+Often, things like margin or padding are defined at the component level on a component class. This is often best.
 Layout utility classes should not be the de-facto method for adding spacing or changing the display behavior of a layout.
-Here is an example:
+
+Here is an example of when using a layout utility class would be good:
 
 Let's say you have some cool buttons on your site. Because things often appear below the buttons, the default button class has some reasonable margin bottom applied.
 
@@ -99,7 +96,7 @@ Let's say you have some cool buttons on your site. Because things often appear b
 ```
 
 Now, in most cases, this is good to go, but in one spot, you have a small line of disclaimer text you want to show right under the button.
-You wonder if you should create a modifier on the button class like `.btn--discalimer-under` or something like that, but that seems silly, its only one spot!
+You wonder if you should create a modifier for the button class like `.btn--discalimer-under` or something like that, but that seems silly, its only one spot!
 This would be a good place to do use Bootstrap's `mb-0` class to remove the margin on the bottom of the button.
 
 ```html

@@ -9,10 +9,9 @@ categories: css
 ## Purpose
 The purpose of this series will be to define some standardized best practices for how our CSS is composed and organized in our projects.
 
-This is part 3 of 5: File Structure.
+This is part 3 of 4: File Structure.
 In this article, we will give an overview of how we break down our SASS into separate files and give a brief overview of each major file grouping.
-More detailed and procedural examples of creating this structure is provided in a later article. 
-This is to serve as a primer and to familiarize you with how we think about file structure.  
+This article is to serve as a primer for the tutorial in part 4, and to familiarize you with how we think about file structure.  
 
 ## Using multiple SASS files
 We adhere (loosely) to principles of the [SMACSS Philosophy](https://smacss.com/) written by Jonathan Snook when it comes to organizing SASS rules and files.
@@ -43,13 +42,13 @@ main.sass
 ```
 `dist` - this directory is where our final CSS files are output once they are built by the preprocessor
 
-`src` - all the source sass files are contained here
+`src` - all the source SASS files are contained here
 
-`src\base` - the base directory holds all of the files with base-level rules
+`src\base` - the base directory holds all of the SASS files with base-level rules
 
-`src\components` - all component files are stored here
+`src\components` - all component SASS files are stored here
 
-`src\layout` - all layout files are stored here
+`src\layout` - all layout SASS files are stored here
 
 `_bootstrap_variables.sass` - any bootstrap-specific variables are contained in this file. 
 This file is included in main.sass before importing bootstrap to customize any variables.
@@ -80,10 +79,10 @@ OR a rule that can be applied via a globally available class that is not specifi
 
 Common files that are included in the base/ directory for a project are
 ```
-\_acessibility.sass
-\_elements.sass
-\_forms.sass
-\_typography.sass
+_acessibility.sass
+_elements.sass
+_forms.sass
+_typography.sass
 ```
 
 Each of these files deals with things on a global level. The elements file may set styles on the body element
@@ -97,14 +96,13 @@ Components make up the majority of styles for a site and deal with individual su
 A component might be something like a navigation bar, a slideshow or a faculty profile card.
 
 For each unique component in the site, a separate SASS file should be created. 
-(Don't worry, there will be a separate article on how to identify and build components)
   
 For example, we may look at a page and see that we have a large featured image section with a headline that overlays it.
 As a unit, this set of elements belongs together. We might call this section the "Hero Banner." 
 To add styles for it, we would create a new file in the components directory
 
 ```
-\_hero_banner.sass
+_hero_banner.sass
 ```
 
 After writing styles for the hero banner, we would then move on to the next component.
@@ -118,17 +116,13 @@ By keeping all conditional styles contained in the component file, there is no g
 Layout styles are used to give the page structure and shape. While components deal with isolated and repeatable units of content,
 layout styles deal with providing a structure or skeleton for those components to live in. 
 
-A basic page will generally have at least 3 layout sections:
+A basic page will usually have at least 3 layout sections:
 - Header
 - Page Content
 - Footer
 
-Each of these sections will contain elements and components, but the styles that dictate the properties of these higher-level containers are considered layout rules.
+The styles that dictate the appearance of these higher-level containers are considered layout rules.
 The primary purpose of layout rules is to create large-scale structure.
 
 For example, if we look at the design for a site and see that the header spans the full width of the page, has a blue background and is 100px high,
-we would want to define those styles as layout styles.  
-
-```
-\_header.sass
-```
+we would want to define those styles as layout styles by adding a separate `_site-header.sass` file.

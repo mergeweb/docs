@@ -9,7 +9,7 @@ categories: css
 ## Purpose
 The purpose of this series will be to define some standardized best practices for how our CSS is composed and organized in our projects.
 
-This is part 1 of 5: Philosophy.
+This is part 1 of 4: Philosophy.
 In this article, we will explore our CSS philosophy and provide a high-level overview of how we write css.
 
 ## Principles
@@ -64,14 +64,20 @@ Here's an overview of how we structure and organize our code (borrowed from [css
  Most code editors can be set up to use four spaces as the default indent.
 
 ### Multi-line css
- Selectors and properties each get their own line.
- This makes code legible and easier to parse visually
- Do it like this:
+Selectors and properties each get their own line.
+This makes code legible and easier to parse visually
+
+Do it like this:
 
  ```sass
 .container
     width: 95%
     max-width: 40em
+ ```
+ 
+Not like this (with no brackets in SASS, single-line format is not valid): 
+ ```css
+.container{width: 95%; max-width: 40em;}
  ```
 
 ### Meaningful use of white space
@@ -126,7 +132,7 @@ Example:
 
 ### Use single line comments
 Your comments don't have to be on one single line, just don't use traditional multi-line comment format, ie: `/* These kinds of comments */`, 
-because they will end up in the compiled css. Your comments, even if they are multi-line, should look like this:
+because they will end up in the compiled css. Your comments, even if they take up multiple lines, should look like this:
 
 ```sass
 // This file is where you override default Bootstrap variables. You
@@ -173,16 +179,16 @@ At a high level, BEM seeks to:
 For more on BEM philosophy: [BEM Philosophy](http://getbem.com/)
 
 More on how we interpret BEM philosophy will be explored in later articles. 
-In general, BEM treats the highest level of a component as a "Block". This may be menu for example:
+In general, BEM treats the highest level of a component as a "Block". A menu is a good example of a "Block":
 
 ```sass
 .primary-menu
     //some menu styles
 ```
 
-Related sub-parts of that menu are considered "Elements." In this case, items in the menu may be a good example. 
+Related sub-parts of that menu are considered "Elements." In this case, items in the menu are a good example. 
 Elements are given their own classes. Element class names use their block class name, followed by 2 underscores, then the element name.
-Elements are NOT nested underneath their block selector.
+Elements are NOT nested underneath their block selector in the SASS code.
 Like so:
 
 ```sass
@@ -203,7 +209,7 @@ For our small example, lets say we want some menu items to have a bottom-border.
     border-bottom: 1px solid #000
 ```
 
-If you prefer to leverage sass's nesting capabilities, the example above can be written like so  
+If you prefer to leverage SASS's nesting capabilities, the example above can be written like so  
 ```sass
 .primary-menu
     //some menu styles
@@ -214,8 +220,10 @@ If you prefer to leverage sass's nesting capabilities, the example above can be 
         border-bottom: 1px solid #000
 ```
 
-In BEM architecture, elements are never nested. This prevents elements from depending on one another.
-Practically that means:
+In BEM architecture, you should not write classes with more than 1 set of "__". Each element in the BEM approach gets its own class,
+They do not depend on each other. For example, If you had an `<a>` tag insid your `primary-menu__item`, it may tempting to
+add a class of `primary-menu__menu-item__link`. This implies element dependency, that the link element depends on being inside the menu item.
+Element dependency is something BEM strives to avoid. You would instead add a class to the `<a>` element of `primary-menu__link`.
 
 ```sass
 // Do this
@@ -235,7 +243,7 @@ You can use them for Javascript or for providing anchor-links, but don't use the
 ### Avoid Vendor Prefixes
 For sites that are using a build tool like Grunt or Gulp, we can skip vendor prefixes in the css in favor of using the [PostCSS Autoprefixer plugin](https://github.com/nDmitry/grunt-postcss). 
 It will automatically determine what prefixes are necessary based on browser support requirements and only include the necessary ones.
-If you build the auto-prefixer into a tooling-chain, don't do it on every compile during dev, it takes a minute.
+If you build the auto-prefixer into a tooling-chain, don't do it on every compile during dev, it can slow down your build time.
 
 ### Use relative units for font-sizing.
 Prefer relative units like `rem` or `em` for font-sizing. This allows for more flexible, more maintainable font styling. 
@@ -247,7 +255,8 @@ You will need to write a lot less css if your line-height ratios are on to begin
 ### Namespacing
 Consider name-spacing layout and javascript specific classes.
 
-For instance, instead of using a class name like `.container`, you could use `.layout-container`. Or `.layout-grid`, over `.grid`. This gives the benefit of clear separation between component
+For instance, instead of using a class name like `.container`, you could use `.layout-container`. Or `.layout-grid`, over `.grid`. 
+This gives the benefit of clear separation between component-specific and layout-specific styles.
 
 Or for javascript that is manipulating the DOM, use something like `.js-behavior-hook`
  instead of `.behavior-hook` to make sure that it is a dedicated class not used for styling.

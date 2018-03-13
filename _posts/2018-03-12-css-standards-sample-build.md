@@ -13,7 +13,7 @@ This is part 4 of 4: Style Tutorial.
 In this article, we will do a guided tutorial that puts into practice our style philosophy. The goals of this tutorial are:
 1. Show how to identify different types of CSS rules
 2. Show how to identify and write styles for components
-3. Provide working examples for implementing BEM architecture
+3. Provide working examples for implementing BEM naming
 4. Show how to use Bootstrap to support development
 
 ## Tennessee Coastal University
@@ -42,7 +42,7 @@ Go ahead and compile the SASS that exists by running `npm run sass` in the termi
 Refresh the page, and you should see some minimal styling.
 
 ## Setting up Bootstrap
-You'll notice that, at this point, the page has very little structure to it.
+At this point, the page has very little structure to it.
 To set up the grid and provide basic page structure, we need to include bootstrap.
 
 Open your main.sass file and add the following line beneath the "Include Bootstrap" comment
@@ -54,8 +54,8 @@ This will import the bootstrap framework into the stylesheet build.
 
 Now, you can run `npm run sass` again and refresh the page to see the changes.
 
-So you don't have to continually run the `npm run sass` command to compile sass, a watcher script has also been included in the repo.
-Running `npm run watch` will monitor the sass files and re-build the css output as it the sass is updated.
+So you don't have to continually run the `npm run sass` command to compile sass, a watcher script was also installed during setup.
+Running `npm run watch` will monitor the sass files and re-build the css output as the sass is updated.
 
 ### Modifying the max-width for the bootstrap grid
 One modification we'd like to make to Bootstrap is to increase the maximum width of the container elements at the largest breakpoint.
@@ -82,7 +82,8 @@ $container-max-widths: (xl: 1200px)
 ```
 
 This will set the max-width at the xl breakpoint to be 1200px. If you'd like to see what other Bootstrap variables are available to override,
-you can see the full list in the `node_bodules\bootstrap\scss\_variables.scss` file.
+you can see the full list in the `node_bodules\bootstrap\scss\_variables.scss` file. The [Bootstrap Themeing Guide](https://getbootstrap.com/docs/4.0/getting-started/theming/)
+also discusses customizing Bootstrap by re-defining SASS variables.
 
 To complete the override, we need to import the `_bootstrap_variables.sass` file into `main.sass`.
 Open `main.sass` and above the line where bootstrap was imported, add the following line:
@@ -94,7 +95,7 @@ Open `main.sass` and above the line where bootstrap was imported, add the follow
 ## Let's get basic
 Now its time to determine what base-level styles we need to put into place.
 Bootstrap already includes some "CSS Reset" code, so we won't need to worry about any style resets. 
-Looking at the final output, there are a couple of things that we can set globally: type styles and colors.
+Looking at the final output, there are a couple of things that we can style globally: type styles and colors.
 
 ### Defining some variables
 Since we are using SASS, we'll want to define our colors as variables so that they can be re-used across other SASS files.
@@ -221,7 +222,8 @@ On to the footer! Have a look at the footer markup in `index.html`
 </footer>
 ```
 
-We've left off classes from the footer. Now, give it a go, see if you can style that footer!
+We've left off classes from the footer. Your job is to add one class to the `<footer>` element and set up some styles (in the correct place) to match the image at the beginning of the article.  
+Now, give it a go, see if you can style that footer!
 (Hint, it uses `$brand-grey`)
  
 ...
@@ -243,10 +245,13 @@ Create a new `_page_footer.sass` file in `css\src\layout`. Inside that file, add
 ```
 
 ### Bootstrap's role in layouts
-Now, some may protest and say: "Clearly the sidebar is also a layout section!". And that is correct.
-However, we do not treat it as a separate layout section in the styles because it's positioning can be managed entirely using the bootstrap grid.
+Outside of our 3 main layout sections, there are certainly other parts of a website that will need some layout-driven CSS rules.
+One major example of additional layout needs is a grid system. That's where Bootstrap comes into play for us.
 
-Bootstrap aids extensively in layout styling by providing the `container` class along with the grid system.
+Inside of our larger containers, we rely often on the Bootstrap grid system to give structure to a page.
+You can see looking at the markup that the body copy and sidebar are arranged using the Bootstrap grid classes.
+Additionally, the contents of our 3 main layout sections are all wrapped with a `container` class, which limits their width. 
+
 Any place you need column-based layouts, you should use [Bootstrap's grid system](https://getbootstrap.com/docs/4.0/layout/grid/).  
 
 ## Identifying components
@@ -255,7 +260,12 @@ The first step in writing component styles is to identify what the components ar
 Components are parts of the page that we want to treat as separate units. They are not styled in a context-dependant manner (meaning they can be moved around and retain their styles).
 Components also require styles beyond what are set in bootstrap or in the base styles.
 
-In our sample layout, there are 5.
+In our sample layout, there are 5 that we can easily identify.
+- Logo
+- Primary Navigation
+- Sidebar Navigation
+- Faculty Profile Card
+- Footer List
 
 <img src="/public/img/css-tutorial/site-componenets.png" alt="Componenets for TCU"/>
 
@@ -268,7 +278,7 @@ We will need to handle a few things in this component.
 - Show the individual navigation items inline
 - Style the navigation links
 
-We've added the markup in the `index.html` file and added an empty `_primary_menu.sass` file in `css\src\components`.
+Ther is already markup in the `index.html` file for the menu and an empty `_primary_menu.sass` file can be found in `css\src\components`.
 Lets start by looking at the markup.
 
 ```html
@@ -308,7 +318,7 @@ The markup should now look like this:
 The markup is complete, let's move into the SASS file and add some styles.
  
 Our first concern is to get the individual nav items to show in a single row as opposed to a standard stacked list.
-Our best bet will be to use the `primary-menu__list` class to accomplish this.
+Our approach will be to use the `primary-menu__list` class to accomplish this.
 
 ```sass
 .primary-menu__list
