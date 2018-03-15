@@ -19,7 +19,7 @@ Our CSS philosophy borrows from several different frameworks and systems:
  - Drupal 8
  - Bootstrap
   
-The Goals of Drupal 8's CSS philosophy will serve as a good starting point for our CSS philosophy. Well-architected CSS should be:
+The Goals of Drupal 8's CSS philosophy serve as a good starting point. Well-architected CSS should be:
 
 >#### 1. Predictable
 >CSS throughout Drupal core and contributed modules should be consistent and understandable. Changes should do what you would expect without side-effects.
@@ -155,7 +155,7 @@ To stay consistent, your imports should look like this:
 ## Writing Selectors
 We have a few preferences when it comes to writing CSS selectors.
    - Write selectors for humans
-   - Use BEM architecture for component structure
+   - Use BEM naming for component structure
    - Avoid ID selectors
    - Avoid Vendor Prefixes
 
@@ -164,7 +164,7 @@ Class names should use full words rather than abbreviations.
 Remember that your class names are written for the benefit of other developers, not the computer. 
 Prefer `class="block"` to `class="blk"`.
 
-Class names for components should use dashes between words for legibility. 
+Class names for components should use dashes between words for legibility (not underscores). 
 Prefer `class="component-name"` to `class="componentname"`.
 
 ### Class Name Format (Using BEM)
@@ -179,16 +179,16 @@ At a high level, BEM seeks to:
 For more on BEM philosophy: [BEM Philosophy](http://getbem.com/)
 
 More on how we interpret BEM philosophy will be explored in later articles. 
-In general, BEM treats the highest level of a component as a "Block". A menu is a good example of a "Block":
+In general, BEM treats the highest level of a component as a "Block". A site menu is a good example of a "Block":
 
 ```sass
 .primary-menu
     //some menu styles
 ```
 
-Related sub-parts of that menu are considered "Elements." In this case, items in the menu are a good example. 
-Elements are given their own classes. Element class names use their block class name, followed by 2 underscores, then the element name.
-Elements are NOT nested underneath their block selector in the SASS code.
+Related sub-parts of a "Block" are considered "Elements." In this example, items in the menu would be "Elements". 
+Different elements are each given their own unique class name. Element class names use their block's class name, followed by 2 underscores, then the element's class name.
+Elements are NOT nested underneath their block selector in the Sass code.
 Like so:
 
 ```sass
@@ -201,7 +201,7 @@ Like so:
 
 "Modifiers" or "variants" of elements create slightly different versions of an element.
 To create a modifier, add two dashes and the modifer name to the end of the element class name.
-For our small example, lets say we want some menu items to have a bottom-border.
+For our menu example, lets say we want some menu items to have a bottom-border.
 
 ```sass
 .primary-menu__menu-item--border-bottom
@@ -209,7 +209,7 @@ For our small example, lets say we want some menu items to have a bottom-border.
     border-bottom: 1px solid #000
 ```
 
-If you prefer to leverage SASS's nesting capabilities, the example above can be written like so  
+If you prefer to leverage SASS's nesting capabilities, the example above can be written like so:
 ```sass
 .primary-menu
     //some menu styles
@@ -220,8 +220,8 @@ If you prefer to leverage SASS's nesting capabilities, the example above can be 
         border-bottom: 1px solid #000
 ```
 
-In BEM architecture, you should not write classes with more than 1 set of "__". Each element in the BEM approach gets its own class,
-They do not depend on each other. For example, If you had an `<a>` tag insid your `primary-menu__item`, it may tempting to
+When using BEM naming, you should not write classes with more than 1 set of double underscores (__). Using the BEM approach, each "Element" gets its own class,
+they do not depend on each other. For example, If you had an `<a>` tag insid your `primary-menu__item`, it may tempting to
 add a class of `primary-menu__menu-item__link`. This implies element dependency, that the link element depends on being inside the menu item.
 Element dependency is something BEM strives to avoid. You would instead add a class to the `<a>` element of `primary-menu__link`.
 

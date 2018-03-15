@@ -14,11 +14,10 @@ In this article, we will discuss Bootstrap as our framework of choice and in wha
 
 ## Why Bootstrap
 Our choice to use Bootstrap is preferential. There are merits to other frameworks, Bootstrap is just the one we like best.
-Overall, using a framework like Bootstrap provides us with a lot of predictable structure, patterns and element styles.
-Using the same framework on multiple projects provides a few benefits. 
+Using Bootstrap on multiple projects is beneficial for our development team in several ways. 
 1. We can assume a basic set of patterns and elements are available to us in every site we build.
 2. We know that common classes will always produce the same output and don't have to spend time learning one-off approaches unique to each site.
-3. Because of the predictability in the code, sites can be mutually understood by a team, allowing for better collaboration.
+3. Because of the predictability in the code, sites can be mutually understood, allowing for better collaboration.
 
 ## Using Bootstrap
 Using Bootstrap does require knowing about Bootstrap. 
@@ -42,7 +41,7 @@ Generally, we like to leverage Bootstrap to accomplish 2 major tasks:
 
 In pursuit of these goals, we primarily use the parts of Bootstrap that do not require javascript and that are not highly opinionated in terms of markup structure.
 
-For example, the button styles Bootstrap provide some great defaults and can be overridden to match the theme of a site.
+For example, the button styles in Bootstrap provide some great defaults and can be overridden to match the theme of a site.
 Button styles require only one class: `.btn`, and they do not rely on any particular markup (though button styles should generally be applied to `<button>` elements) 
 
 Conversely, the "Jumbotron" component requires some specific markup structure and may be harder to naturally work into a specific design.
@@ -60,7 +59,6 @@ For layout purposes, we use Bootstrap to do the following:
     - Margin and padding alterations (like mb-1 for adding some margin on the bottom of something)
  
 When building a site, grid structure and layout modifiers should always rely on Bootstrap.
-For page layouts, refer to Bootstrap's [Grid System](https://getbootstrap.com/docs/4.0/layout/grid/).
 Generally, grid layouts are defined as follows:
 
 ```html
@@ -76,10 +74,12 @@ Generally, grid layouts are defined as follows:
     </div>
 </div>
 ```
+For more documentation on grids, refer to Bootstrap's [Grid System](https://getbootstrap.com/docs/4.0/layout/grid/) overview.
 
 Using layout utility classes properly is trickier, and comes with some practice. 
-Often, things like margin or padding are defined at the component level on a component class. This is often best.
+Often, things like display, margin or padding are defined at the component level on a component class. Defining these properties as part of a component is typically best.
 Layout utility classes should not be the de-facto method for adding spacing or changing the display behavior of a layout.
+However, there are instances where they can be useful.
 
 Here is an example of when using a layout utility class would be good:
 
@@ -95,8 +95,8 @@ Let's say you have some cool buttons on your site. Because things often appear b
     margin-bottom: 1rem
 ```
 
-Now, in most cases, this is good to go, but in one spot, you have a small line of disclaimer text you want to show right under the button.
-You wonder if you should create a modifier for the button class like `.btn--discalimer-under` or something like that, but that seems silly, its only one spot!
+Now, in most cases, these buttons will look good in a layout. But in one spot, you have a small line of disclaimer text you want to show right under the button.
+You wonder if you should create a modifier for the button class like `.btn--discalimer-under` or something like that, but that seems silly, it's only one spot!
 This would be a good place to do use Bootstrap's `mb-0` class to remove the margin on the bottom of the button.
 
 ```html
@@ -114,7 +114,7 @@ When adding common elements to a layout, we like to rely on Bootstrap to define 
 - Input Groups
 
 Other components are used on a discretionary basis. Refer to the Bootstrap docs to dee examples of each of the components listed above.
-These common components are often tweaked or customized for a given site or theme, this is discussed in the following section.
+These common components are often tweaked or customized for a given site or theme. Our preferred modification technique is discussed in the following section.
 
 ### Modifying where necessary
 Bootstrap is made to allow for its outputs to be customized.
@@ -123,7 +123,7 @@ There are 2 primary ways that we customize Bootstrap's default styles to fit the
 - Overriding default styles for common components
 
 #### Variable Overrides
-Bootstrap uses a lot of SASS variables when it builds its styles.
+Bootstrap uses a lot of Sass variables when it builds its styles.
 Sometimes, it is helpful to customize these variables. For example, you may wish to provide some additional breakpoints for your layout.
 To override variables, we include a "bootstrap_variables" file above the Bootstrap include in the main sass file.
  
