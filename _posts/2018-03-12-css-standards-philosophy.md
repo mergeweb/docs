@@ -7,7 +7,7 @@ categories: css
 ---
 
 ## Purpose
-The purpose of this series will be to define some standardized best practices for how our CSS is composed and organized in our projects.
+The purpose of this series will be to define some standardized best practices for how CSS is composed and organized in our projects.
 
 This is part 1 of 4: Philosophy.
 In this article, we will explore our CSS philosophy and provide a high-level overview of how we write css.
@@ -15,7 +15,7 @@ In this article, we will explore our CSS philosophy and provide a high-level ove
 ## Principles
 Our CSS philosophy borrows from several different frameworks and systems:
  - SMACSS by Jonathan Snook
- - BEM Architecture
+ - The BEM Naming Pattern
  - Drupal 8
  - Bootstrap
   
@@ -49,6 +49,7 @@ Here's an overview of how we structure and organize our code (borrowed from [css
  - Four (4) space indents, no tabs
  - Multi-line css
  - Meaningful use of white space
+ - Limit Sass nesting depth to 2 levels 
  - Limit line length to 80 characters
  - Use single line comments
  - Clean Import Paths
@@ -61,7 +62,7 @@ Here's an overview of how we structure and organize our code (borrowed from [css
 
 ### Four space indents
  Since we aren't using brackets, this keeps the Sass clearer and also is aligned with our Javascript and PHP standards.
- Most code editors can be set up to use four spaces as the default indent.
+ Most code editors can be set up to use four spaces as the default line indent.
 
 ### Multi-line css
 Selectors and properties each get their own line.
@@ -75,7 +76,7 @@ Do it like this:
     max-width: 40em
  ```
  
-Not like this (with no brackets in SASS, single-line format is not valid): 
+Not like this (with no brackets in Sass, single-line format is not valid): 
  ```css
 .container{width: 95%; max-width: 40em;}
  ```
@@ -100,7 +101,7 @@ Example:
 
 ```
 
-### Nesting Depth
+### Limit Sass nesting depth to 2 levels
 Nesting depth should be limited to 2.
 This prevents un-necessary specificity of selectors and makes future maintenance easier.
 The code is also easier to understand with limited nesting depth.
@@ -188,15 +189,23 @@ In general, BEM treats the highest level of a component as a "Block". A site men
 
 Related sub-parts of a "Block" are considered "Elements." In this example, items in the menu would be "Elements". 
 Different elements are each given their own unique class name. Element class names use their block's class name, followed by 2 underscores, then the element's class name.
-Elements are NOT nested underneath their block selector in the Sass code.
+Elements are NOT nested underneath their block selector to avoid contextual dependency.
 Like so:
 
 ```sass
+//Like This
 .primary-menu
     //some menu styles
 
 .primary-menu__menu-item
     //styles for the menu item
+    
+//Not Like This
+.primary-menu
+    //some menu styles
+    .primary-menu__menu-item
+        //styles for the menu item
+        //this class must now always be a child of .primary-menu for these styles to apply
 ```
 
 "Modifiers" or "variants" of elements create slightly different versions of an element.
@@ -209,7 +218,7 @@ For our menu example, lets say we want some menu items to have a bottom-border.
     border-bottom: 1px solid #000
 ```
 
-If you prefer to leverage SASS's nesting capabilities, the example above can be written like so:
+If you prefer to leverage Sass's nesting capabilities, the example above can be written like so:
 ```sass
 .primary-menu
     //some menu styles
@@ -221,7 +230,7 @@ If you prefer to leverage SASS's nesting capabilities, the example above can be 
 ```
 
 When using BEM naming, you should not write classes with more than 1 set of double underscores (__). Using the BEM approach, each "Element" gets its own class,
-they do not depend on each other. For example, If you had an `<a>` tag insid your `primary-menu__item`, it may tempting to
+they do not depend on each other. For example, If you had an `<a>` tag inside your `primary-menu__item`, it may tempting to
 add a class of `primary-menu__menu-item__link`. This implies element dependency, that the link element depends on being inside the menu item.
 Element dependency is something BEM strives to avoid. You would instead add a class to the `<a>` element of `primary-menu__link`.
 

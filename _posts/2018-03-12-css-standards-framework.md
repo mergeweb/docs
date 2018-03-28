@@ -7,10 +7,13 @@ categories: css
 ---
 
 ## Purpose
-The purpose of this series will be to define some standardized best practices for how our CSS is composed and organized in our projects.
+The purpose of this series will be to define some standardized best practices for how CSS is composed and organized in our projects.
 
 This is part 2 of 4: Framework.
 In this article, we will discuss Bootstrap as our framework of choice and in what ways we lean on Bootstrap to style a site.
+
+It is worth noting, this article focuses primarily on how we use Bootstrap in the context of building a "designed" or "brochure" site
+as opposed to an application.
 
 ## Why Bootstrap
 Our choice to use Bootstrap is preferential. There are merits to other frameworks, Bootstrap is just the one we like best.
@@ -39,9 +42,9 @@ Generally, we like to leverage Bootstrap to accomplish 2 major tasks:
 - Setting up page layouts
 - Providing base styling for common components
 
-In pursuit of these goals, we primarily use the parts of Bootstrap that do not require javascript and that are not highly opinionated in terms of markup structure.
+In pursuit of these goals, we only use the parts of Bootstrap that do not require javascript and that are not highly opinionated in terms of markup structure.
 
-For example, the button styles in Bootstrap provide some great defaults and can be overridden to match the theme of a site.
+For example, the button styles in Bootstrap provide some great defaults and can be customized to match the theme of a site.
 Button styles require only one class: `.btn`, and they do not rely on any particular markup (though button styles should generally be applied to `<button>` elements) 
 
 Conversely, the "Jumbotron" component requires some specific markup structure and may be harder to naturally work into a specific design.
@@ -63,6 +66,7 @@ Generally, grid layouts are defined as follows:
 
 ```html
 <!-- container limits the width of the grid -->
+<!-- container-fluid is also available for fluid scaling -->
 <div class="container">
     <div class="row">
         <div class="col-6">
@@ -118,13 +122,8 @@ These common components are often tweaked or customized for a given site or them
 
 ### Modifying where necessary
 Bootstrap is made to allow for its outputs to be customized.
-There are 2 primary ways that we customize Bootstrap's default styles to fit the needs of a given site.
-- Overriding Bootstrap variables
-- Overriding default styles for common components
-
-#### Variable Overrides
-Bootstrap uses a lot of Sass variables when it builds its styles.
-Sometimes, it is helpful to customize these variables. For example, you may wish to provide some additional breakpoints for your layout.
+In most cases, outputs can be customized by using variable overrides. Bootstrap 4 defines almost all modifiable properties of its modules as variables.
+By overriding these variables with our own values, we can customize the modules.
 To override variables, we include a "bootstrap_variables" file above the Bootstrap include in the main sass file.
  
 ```sass
@@ -135,31 +134,52 @@ To override variables, we include a "bootstrap_variables" file above the Bootstr
 @import "node_modules/bootstrap/scss/bootstrap";
 ```
 
-For specifics on how to override variables, see Bootstrap's theming guide:
+As an example, lets remove the border radius from the default bootstrap buttons.
+All of bootstrap's variables are located in `node_modules/bootstrap/scss/_variables.scss` for reference (assuming you use npm to install bootstrap).
+They define the following variables for buttons:
+
+```sass
+// Buttons
+//
+// For each of Bootstrap's buttons, define text, background and border color.
+
+$input-btn-padding-y:       .5rem !default;
+$input-btn-padding-x:       .75rem !default;
+$input-btn-line-height:     1.25 !default;
+
+$input-btn-padding-y-sm:    .25rem !default;
+$input-btn-padding-x-sm:    .5rem !default;
+$input-btn-line-height-sm:  1.5 !default;
+
+$input-btn-padding-y-lg:    .5rem !default;
+$input-btn-padding-x-lg:    1rem !default;
+$input-btn-line-height-lg:  1.5 !default;
+
+$btn-font-weight:                $font-weight-normal !default;
+$btn-box-shadow:                 inset 0 1px 0 rgba($white,.15), 0 1px 1px rgba($black,.075) !default;
+$btn-focus-box-shadow:           0 0 0 3px rgba(theme-color("primary"), .25) !default;
+$btn-active-box-shadow:          inset 0 3px 5px rgba($black,.125) !default;
+
+$btn-link-disabled-color:        $gray-600 !default;
+
+$btn-block-spacing-y:            .5rem !default;
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius:              $border-radius !default;
+$btn-border-radius-lg:           $border-radius-lg !default;
+$btn-border-radius-sm:           $border-radius-sm !default;
+
+$btn-transition:                 background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
+```
+
+In our `_boostrap_variables.sass` file in out project, we can add the following to re-set the border-radius property to 0:
+
+```sass
+$btn-border-radius: 0
+```
+
+For more on how to override variables, see Bootstrap's theming guide:
 [Bootstrap Themeing Guide](https://getbootstrap.com/docs/4.0/getting-started/theming/)
-
-#### Modified Elements
-Theming also requires tweaking some default components to match the look and feel of the site.
-One common example of this is buttons. Bootstrap provides great defaults for button styles, but we may want to tweak them a bit.
-To accomplish this, we define our own button component, using the same `.btn` class, and import it below the Bootstrap styles in the main.sass file.
-
-```sass
-//bootstrap styles
-@import "node_modules/bootstrap/scss/bootstrap";
-
-//custom button component
-@import "components/button";
-```
-
-Inside the button component, we may do things like remove the border radius or change the font of the buttons.
-The rest of the button styles will be inherited from the bootstrap `.btn` class. 
-
-```sass
-//custom button rules
-.btn
-    border-radius: 0
-    font-family: "Avenir", Helvetica, sans-serif
-```
 
 ## Setting up Bootstrap with NPM
 Our preferred method for installing Bootstrap is by using npm.
@@ -172,8 +192,8 @@ npm install bootstrap
 This will install the Bootstrap package in your node_modules folder.
 
 Then, to include Bootstrap in your style build, import Bootstrap from the node_modules folder inside your main.sass file.
-You should import Bootstrap at the top of the file, which will allow any of your component customizations to tweak the default styles if needed.
-Depending on the where node_modules is in relation to your SASS files, your import path may differ.
+You should import Bootstrap at the top of the file, which will allow any of your components to tweak the default styles if needed.
+Depending on the where node_modules is in relation to your Sass files, your import path may differ.
  
 ```sass
 @import '../node_modules/bootstrap/scss/bootstrap';

@@ -7,10 +7,10 @@ categories: css
 ---                  
 
 ## Purpose
-The purpose of this series will be to define some standardized best practices for how our CSS is composed and organized in our projects.
+The purpose of this series will be to define some standardized best practices for how CSS is composed and organized in our projects.
 
 This is part 4 of 4: Style Tutorial.
-In this article, walk through a guided example that puts into practice our style philosophy. The goals of this tutorial are:
+In this article, we will walk through a guided example that puts into practice our CSS philosophy. The goals of this tutorial are:
 1. Show how to identify different types of CSS rules
 2. Show how to identify and write styles for components
 3. Provide working examples for implementing BEM naming
@@ -33,7 +33,7 @@ The master branch contains the finished version of the site.
 Go ahead and run `git checkout tutorial-start` to move to the tutorial start branch, which is set up to follow along with these instructions. 
 
 After checking out the tutorial start branch, run `npm install` from the root directory.
-This will install bootstrap, node-sass and other dependencies for you. If you do not have npm (or node.js) configured, follow [these instructions](https://docs.npmjs.com/getting-started/installing-node)
+This will install bootstrap, node-sass and other dependencies for you. If you do not have npm (or node.js) configured, follow [these instructions](https://docs.npmjs.com/getting-started/installing-node).
 
 Once the npm modules are installed, take a look at the folder and file structure.
 Your basic file structure is already established with a some of the files in place.
@@ -82,7 +82,7 @@ $container-max-widths: (xl: 1200px)
 ```
 
 This will set the max-width at the xl breakpoint to be 1200px. If you'd like to see what other Bootstrap variables are available to override,
-you can see the full list in the `node_bodules\bootstrap\scss\_variables.scss` file. The [Bootstrap Themeing Guide](https://getbootstrap.com/docs/4.0/getting-started/theming/)
+you can see the full list in the `node_modules/bootstrap/scss/_variables.scss` file. The [Bootstrap Themeing Guide](https://getbootstrap.com/docs/4.0/getting-started/theming/)
 also discusses customizing Bootstrap by re-defining Sass variables.
 
 To complete the override, we need to import the `_bootstrap_variables.sass` file into `main.sass`.
@@ -247,10 +247,10 @@ Create a new `_layout_page_footer.sass` file in `css\src\layout`. Inside that fi
 
 ### Bootstrap's role in layouts
 Outside of our 3 main layout sections, there are certainly other parts of a website that will need some layout-driven CSS rules.
-One major example of additional layout needs is a grid system. That's where Bootstrap comes into play for us.
+One example of a common layout need is a grid system. That's where Bootstrap comes into play for us.
 
 Inside of our larger containers, we rely on the Bootstrap grid system to give structure to a page.
-You can see looking at the markup that the body copy and sidebar are arranged using the Bootstrap grid classes.
+Taking a look at the markup, you can see that the body copy and sidebar are arranged using the Bootstrap grid classes.
 Additionally, the contents of our 3 main layout sections are all wrapped with a `container` class, which limits their width. 
 
 Any place you need column-based layouts, you should use [Bootstrap's grid system](https://getbootstrap.com/docs/4.0/layout/grid/).  
@@ -300,7 +300,7 @@ Since we are calling this component "Primary Menu", we'll add the `primary-menu`
 
 Now, we want to identify sub-parts of the block (Elements - the E in BEM) that have their own styling needs.
 It's likely that we'll need to style the `<ul>` element and the individual `<li>` elements. Now we need to choose names for these.
-Be concerned more with clarity over being too verbose. Something like `primary-menu__list` and `primary-menu__list-item` should work well. 
+Be concerned more with clarity over being too verbose. Something like `primary-menu__list` and `primary-menu__item` should work well. 
 
 The format for BEM dictates that elements are named with their block name, then 2 underscores, then the element name.
 The markup should now look like this:
