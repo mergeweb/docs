@@ -10,7 +10,11 @@ A collection of best practices and wisdom nuggets, from and for the developers a
 
 ## URLs
 
- - Live: http://docs.upupdev.net
+ - [Wiki](https://github.com/mergeweb/docs/wiki)
+   - **The wiki is the latest and most up-to-date source of documentation.**
+   - Unavailable to the public and sometimes in draft state.
+   - Eventually, the best and most proven material may move to the [live documentation](http://docs.upupdev.net)
+ - Live (Largely outdated as of 2023, but still worth referring to): http://docs.upupdev.net
  - Local: http://127.0.0.1:4000/
 
 ## Local Dev
